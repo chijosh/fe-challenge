@@ -2,9 +2,8 @@
 
 ![UI example](https://github.com/Bike24/FrontendCodingChallenge/blob/main/assets/ui_example.png?raw=true)
 
-
-\
-\
+&nbsp;
+&nbsp;
 
 ## The rules
 You have one week to complete the task at your own pace.
@@ -21,8 +20,9 @@ Typescript is mandatory
 
 Provide your code as a runnable application in the repository
 
-\
-\
+&nbsp;
+&nbsp;
+
 
 ## The task
 
@@ -53,8 +53,9 @@ Provide your code as a runnable application in the repository
 
 * As a customer I want to see a graphical overlay when I confirm the purchase to know that my order was successful
 
-\
-\
+&nbsp;
+&nbsp;
+
 
 ## Extended scope
 
@@ -66,8 +67,9 @@ Provide your code as a runnable application in the repository
 
  
  
-\
-\
-\
+&nbsp;
+&nbsp;
+&nbsp;
+
 
 ### Good luck
