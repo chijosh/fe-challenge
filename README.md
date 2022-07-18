@@ -27,7 +27,8 @@
 ## The task
 
 
-* Try to imagine a wild product owner approaching you and wanting to improve the shopping experience for our customers. The following requirements are specified:
+_Try to imagine a wild product owner approaching you and wanting to improve the shopping experience for our customers. The following requirements are specified_
+
 
 * As a customer I want to be able to select products from the drop down list.
 
