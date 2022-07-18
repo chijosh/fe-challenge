@@ -6,19 +6,19 @@
 &nbsp;
 
 ## The rules
-You have one week to complete the task at your own pace.
+* You have one week to complete the task at your own pace.
 
-Please avoid a single commit at the end, we are also interested in the commit history :)
+* Please avoid a single commit at the end, we are also interested in the commit history :)
 
-The visualization above is just a suggestion, it's up to you to implement it according to your imagination
+* The visualization above is just a suggestion, it's up to you to implement it according to your imagination
 
-Try to work through the tasks in their order and refine the final result with each new requirement
+* Try to work through the tasks in their order and refine the final result with each new requirement
 
-You can use libraries, but maybe we ask why exactly this one
+* You can use libraries, but maybe we ask why exactly this one
 
-Typescript is mandatory
+* Provide your code as a runnable application in the repository
 
-Provide your code as a runnable application in the repository
+* Typescript is mandatory
 
 &nbsp;
 &nbsp;
