@@ -1,4 +1,4 @@
-products = '[
+[
     {
         "id": "3ab4c6bc-8920-11ec-a5e9-939419c56813",
         "productName": "Cup",
@@ -727,4 +727,4 @@ products = '[
         "taxRate": 7,
         "price": 7.54
     }
-]'; 
+]
