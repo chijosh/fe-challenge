@@ -1,4 +1,4 @@
-# Greetings and welcome to the Bike24 Frontend challenge.
+# Greetings and welcome to the Bike24 Frontend challenge
 
 ![UI example](https://github.com/Bike24/FrontendCodingChallenge/blob/main/assets/ui_example.png?raw=true)
 
@@ -6,7 +6,7 @@
 &nbsp;
 
 ## The rules
-* You have one week to complete the task at your own pace.
+* You have one week to complete the task at your own pace
 
 * Please avoid a single commit at the end, we are also interested in the commit history :)
 
@@ -20,12 +20,13 @@
 
 * Typescript is mandatory
 
+_Hint: You will find the products in the data folder_ 
+
 &nbsp;
 &nbsp;
 
 
 ## The task
-
 
 _Try to imagine a wild product owner approaching you and wanting to improve the shopping experience for our customers. The following requirements are specified_
 
