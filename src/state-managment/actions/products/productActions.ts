@@ -1,12 +1,12 @@
 import { ActionTypes } from '../../constants/actionTypes';
 import { IProductItem } from '../../../types/index';
 
-export interface setProducts {
+export interface AddProducts {
   type: ActionTypes.SET_PRODUCTS;
   payload: IProductItem;
 }
 
-export interface selectedProduct {
+export interface SetSelectedProduct {
   type: ActionTypes.SELECTED_PRODUCT;
   payload: IProductItem;
 }
@@ -16,9 +16,9 @@ export interface RemoveProduct {
   payload: IProductItem;
 }
 
-export type ProductActions = setProducts | selectedProduct | RemoveProduct;
+export type ProductActions = AddProducts | SetSelectedProduct | RemoveProduct;
 
-export const setProducts = (products: IProductItem) => {
+export const setProducts = (products: Array<IProductItem>) => {
   return {
     type: ActionTypes.SET_PRODUCTS,
     payload: products

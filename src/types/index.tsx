@@ -4,8 +4,7 @@ export interface ProductState {
 }
 
 export interface AppState {
-  products: Array<IProductItem>;
-  selectedProduct: IProductItem | null;
+  AllProducts: ProductState;
   cart: ShoppingCart[];
   totalPrice: number;
   totalTaxRate: number;
