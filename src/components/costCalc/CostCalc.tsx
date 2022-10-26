@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setQtyItem } from '../../state-managment/actions/carts/cartActions';
+
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { AppState } from '../../types';
 
@@ -15,7 +15,6 @@ export const CostCalc = () => {
     const quantity = Number(event.target.value);
 
     dispatch(setSelectedProduct({ ...selectedProduct, quantity }));
-    dispatch(setQtyItem({ ...selectedProduct, quantity }));
   };
 
   const DisplayTotalCost = () => {

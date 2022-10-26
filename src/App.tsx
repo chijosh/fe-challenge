@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from './state-managment/actions/products/productActions';
-import { Cart } from './containers';
-import { Products } from './components';
+import { Cart } from './containers/cart';
+import { Products } from './containers/productDetails';
 import { AppState } from './types';
 import { isEmpty } from './utils';
 

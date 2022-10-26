@@ -13,7 +13,7 @@ export const cartReducer = (
     case ActionTypes.ADD_TO_CART:
       return state.some((product) => product.id === action.payload.id)
         ? state
-        : [...state, { ...action.payload, quantity: 1 }];
+        : [...state, { ...action.payload }];
     case ActionTypes.REMOVE_FROM_CART:
       return state.filter((product) => product.id !== action.payload);
     case ActionTypes.CLEAR_CART:
@@ -30,16 +30,6 @@ export const cartReducer = (
         }
         return product;
       });
-    // case ActionTypes.MINUS_QTY_ITEM:
-    //   return state.map((product) => {
-    //     if (product.id === action.payload) {
-    //       return {
-    //         ...product,
-    //         quantity: product.maxAmount - 1
-    //       };
-    //     }
-    //     return product;
-    //   });
     default:
       return state;
   }
