@@ -22,6 +22,9 @@ export const productsReducer = (
 export const selectedProductsReducer = (state = {}, action: ProductActions) => {
   switch (action.type) {
     case ActionTypes.SELECTED_PRODUCT:
+      if (action.payload.quantity === undefined) {
+        return { ...state, ...action.payload, quantity: 1 };
+      }
       return { ...state, ...action.payload };
     case ActionTypes.REMOVE_SELECTED_PRODUCT:
       return {};

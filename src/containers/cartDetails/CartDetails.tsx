@@ -3,6 +3,7 @@ import { IProductItem } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../types';
 import { removeFromBasket } from '../../state-managment/actions/carts/cartActions';
+import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 
 import { Card, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,8 +11,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   CardContentTable,
   TableHeader,
-  TableHeaderRow,
-  CardDetail
+  TableRow,
+  CardDetail,
+  CardDetailBtn
 } from './styles';
 
 export const CartDetails = ({ product }: any) => {
@@ -24,34 +26,38 @@ export const CartDetails = ({ product }: any) => {
     dispatch(removeFromBasket(id));
   };
 
+  if (cart.length === 0) {
+    dispatch(removeSelectedProduct());
+  }
+
   return (
     <Card>
       <CardContentTable>
-        <TableHeaderRow>
-          <TableHeader>Product name</TableHeader>
-          <TableHeader>Unit price</TableHeader>
-          <TableHeader>Amount</TableHeader>
-          <TableHeader>Price</TableHeader>
-          <TableHeader></TableHeader>
-        </TableHeaderRow>
+        <thead>
+          <TableRow>
+            <TableHeader>Product name</TableHeader>
+            <TableHeader>Unit price</TableHeader>
+            <TableHeader>Amount</TableHeader>
+            <TableHeader>Price</TableHeader>
+            <TableHeader></TableHeader>
+          </TableRow>
+        </thead>
         {cart
           ? cart.map((selectedCart: IProductItem) => {
               return (
-                <TableHeaderRow>
-                  <CardDetail>{selectedCart.productName}</CardDetail>
-                  <CardDetail>{selectedCart.price}</CardDetail>
-                  <CardDetail>Amount goes here</CardDetail>
-                  <CardDetail>total price goes here</CardDetail>
-                  <CardDetail>
-                    {' '}
-                    <IconButton
-                      // icon={'icon'}
-                      onClick={() => handleDelete(selectedCart.id)}
-                    >
-                      <DeleteIcon fontSize='inherit' />
-                    </IconButton>
-                  </CardDetail>
-                </TableHeaderRow>
+                <tbody>
+                  <TableRow key={selectedCart.id}>
+                    <CardDetail>{selectedCart.productName}</CardDetail>
+                    <CardDetail>{selectedCart.price}</CardDetail>
+                    <CardDetail>Amount goes here</CardDetail>
+                    <CardDetail>total price goes here</CardDetail>
+                    <CardDetailBtn>
+                      <IconButton onClick={() => handleDelete(selectedCart.id)}>
+                        <DeleteIcon fontSize='inherit' />
+                      </IconButton>
+                    </CardDetailBtn>
+                  </TableRow>
+                </tbody>
               );
             })
           : ''}

@@ -18,20 +18,14 @@ export interface ClearCartAction {
 
 export interface AddQtyItemAction {
   type: ActionTypes.ADD_QTY_ITEM;
-  payload: string;
-}
-
-export interface MinusQtyItemAction {
-  type: ActionTypes.MINUS_QTY_ITEM;
-  payload: string;
+  payload: IProductItem;
 }
 
 export type CartActions =
   | AddToCartAction
   | RemoveFromCartAction
   | ClearCartAction
-  | AddQtyItemAction
-  | MinusQtyItemAction;
+  | AddQtyItemAction;
 
 export const addToBasket = (product: IProductItem): AddToCartAction => ({
   type: ActionTypes.ADD_TO_CART,
@@ -47,12 +41,7 @@ export const clearCart = (): ClearCartAction => ({
   type: ActionTypes.CLEAR_CART
 });
 
-export const addQtyItem = (id: string): AddQtyItemAction => ({
+export const setQtyItem = (product: IProductItem): AddQtyItemAction => ({
   type: ActionTypes.ADD_QTY_ITEM,
-  payload: id
-});
-
-export const minusQtyItem = (id: string): MinusQtyItemAction => ({
-  type: ActionTypes.MINUS_QTY_ITEM,
-  payload: id
+  payload: product
 });

@@ -20,24 +20,26 @@ export const cartReducer = (
       return initialState;
     case ActionTypes.ADD_QTY_ITEM:
       return state.map((product) => {
-        if (product.id === action.payload) {
+        if (product.id === action.payload.id) {
+          console.log({ product });
+          console.log('action.payload', action.payload);
           return {
             ...product,
-            quantity: product.quantity + 1
+            quantity: action.payload.quantity
           };
         }
         return product;
       });
-    case ActionTypes.MINUS_QTY_ITEM:
-      return state.map((product) => {
-        if (product.id === action.payload) {
-          return {
-            ...product,
-            quantity: product.maxAmount - 1
-          };
-        }
-        return product;
-      });
+    // case ActionTypes.MINUS_QTY_ITEM:
+    //   return state.map((product) => {
+    //     if (product.id === action.payload) {
+    //       return {
+    //         ...product,
+    //         quantity: product.maxAmount - 1
+    //       };
+    //     }
+    //     return product;
+    //   });
     default:
       return state;
   }

@@ -11,3 +11,11 @@ export const AppContainer = styled.div`
     margin-bottom: 12px;
   }
 `;
+export const CirclularContainer = styled.div`
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const TableHeaderRow = styled.tr`
-  text-align: left;
+export const TableRow = styled.tr`
+  text-align: center;
 `;
 
 export const CardContentTable = styled.table`
@@ -9,7 +9,7 @@ export const CardContentTable = styled.table`
   border-collapse: collapse;
   width: 100%;
 
-  ${TableHeaderRow}:nth-child(even) {
+  & > *:nth-child(even) {
     background-color: #f2f2f2;
   }
 `;
@@ -17,7 +17,7 @@ export const CardContentTable = styled.table`
 export const TableHeader = styled.th`
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
 
   border: 1px solid #ddd;
   padding: 4px;
@@ -25,6 +25,13 @@ export const TableHeader = styled.th`
 export const CardDetail = styled.td`
   width: 20%;
 
+  border: 1px solid #ddd;
+  padding: 4px;
+`;
+
+export const CardDetailBtn = styled.td`
+  width: 5%;
+  text-align: center;
   border: 1px solid #ddd;
   padding: 4px;
 `;

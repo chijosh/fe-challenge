@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from './state-managment/actions/products/productActions';
 import { Cart } from './containers';
@@ -6,12 +6,15 @@ import { Products } from './components';
 import { AppState } from './types';
 import { isEmpty } from './utils';
 
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, CircularProgress } from '@mui/material';
 import { CartDetails } from './containers/cartDetails/CartDetails';
 
-import { AppContainer } from './style';
+import { AppContainer, CirclularContainer } from './style';
 
 function App() {
+  const [state, setState] = useState({
+    loading: true
+  });
   const dispatch = useDispatch();
   const { products } = useSelector((state: AppState) => state.AllProducts);
   const { selectedProduct } = useSelector((state: AppState) => state);
@@ -27,12 +30,21 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           dispatch(setProducts(data));
+          setState({ loading: false });
         })
         .catch((err) => console.error(err));
     };
 
     fetchData();
   }, [dispatch]);
+
+  if (state.loading === true) {
+    return (
+      <CirclularContainer>
+        <CircularProgress />
+      </CirclularContainer>
+    );
+  }
 
   return (
     <>
