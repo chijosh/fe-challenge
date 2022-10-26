@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
-import { addToBasket } from '../../state-managment/actions/carts/cartActions';
 import { ProductState, AppState, IProductItem } from '../../types';
 
 import { MenuItem, FormControl, InputLabel, Box } from '@mui/material';
