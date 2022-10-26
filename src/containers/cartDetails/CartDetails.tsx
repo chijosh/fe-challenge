@@ -49,8 +49,10 @@ export const CartDetails = ({ product }: any) => {
                   <TableRow key={selectedCart.id}>
                     <CardDetail>{selectedCart.productName}</CardDetail>
                     <CardDetail>{selectedCart.price}</CardDetail>
-                    <CardDetail>Amount goes here</CardDetail>
-                    <CardDetail>total price goes here</CardDetail>
+                    <CardDetail>{selectedCart.quantity}</CardDetail>
+                    <CardDetail>{`${
+                      selectedCart.quantity * selectedCart.price
+                    }`}</CardDetail>
                     <CardDetailBtn>
                       <IconButton onClick={() => handleDelete(selectedCart.id)}>
                         <DeleteIcon fontSize='inherit' />
