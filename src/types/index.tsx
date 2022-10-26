@@ -1,11 +1,11 @@
 export interface ProductState {
   products: Array<IProductItem>;
-  selectedProduct: IProductItem | null;
 }
 
 export interface AppState {
   AllProducts: ProductState;
-  cart: ShoppingCart[];
+  selectedProduct: IProductItem;
+  cart: IProductItem[];
   totalPrice: number;
   totalTaxRate: number;
 }
@@ -16,9 +16,7 @@ export type IProductItem = {
   maxAmount: number;
   taxRate: number;
   price: number;
+  quantity: number;
 };
 
-export interface ShoppingCart {
-  product: IProductItem;
-  count: number;
-}
+export type CartState = IProductItem[];

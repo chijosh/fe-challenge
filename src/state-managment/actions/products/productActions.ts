@@ -25,7 +25,7 @@ export const setProducts = (products: Array<IProductItem>) => {
   };
 };
 
-export const selectedProduct = (product: IProductItem) => {
+export const setSelectedProduct = (product: IProductItem) => {
   return {
     type: ActionTypes.SELECTED_PRODUCT,
     payload: product
