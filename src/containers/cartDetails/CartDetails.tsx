@@ -14,7 +14,7 @@ import {
   CardDetail
 } from './styles';
 
-export const ProductDetails = ({ product }: any) => {
+export const CartDetails = ({ product }: any) => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state: AppState) => state);
 

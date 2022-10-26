@@ -7,7 +7,7 @@ import { AppState } from './types';
 import { isEmpty } from './utils';
 
 import { CssBaseline } from '@mui/material';
-import { ProductDetails } from './containers/ProductDetails/CartDetails';
+import { CartDetails } from './containers/cartDetails/CartDetails';
 
 import { AppContainer } from './style';
 
@@ -41,7 +41,7 @@ function App() {
         <AppContainer>
           <Products />
           {!isEmpty(selectedProduct) && (
-            <ProductDetails product={selectedProduct} />
+            <CartDetails product={selectedProduct} />
           )}
           <Cart />
         </AppContainer>
