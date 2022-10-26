@@ -19,7 +19,6 @@ export const DropDown = ({ products }: ProductState) => {
 
     if (product) {
       dispatch(setSelectedProduct(product));
-      dispatch(addToBasket(product));
     }
   };
   return (

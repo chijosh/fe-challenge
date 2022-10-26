@@ -5,20 +5,32 @@ import { setSelectedProduct } from '../../state-managment/actions/products/produ
 import { AppState } from '../../types';
 
 import { Slider, TextField } from '@mui/material';
-import { CostCalcContainer } from './styles';
+import { CostCalcContainer, CostCalculator } from './styles';
 
 export const CostCalc = () => {
   const dispatch = useDispatch();
   const { selectedProduct } = useSelector((state: AppState) => state);
 
-  console.log({ selectedProduct });
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const quantity = Number(event.target.value);
-    console.log({ quantity });
 
     dispatch(setSelectedProduct({ ...selectedProduct, quantity }));
     dispatch(setQtyItem({ ...selectedProduct, quantity }));
+  };
+
+  const DisplayTotalCost = () => {
+    const { quantity, price } = selectedProduct;
+    return (
+      <>
+        {price ? (
+          <CostCalculator>{` x ${price} = ${(quantity * price).toFixed(
+            2
+          )}`}</CostCalculator>
+        ) : (
+          <CostCalculator />
+        )}
+      </>
+    );
   };
 
   return (
@@ -27,8 +39,10 @@ export const CostCalc = () => {
       <TextField
         type='number'
         variant='outlined'
-        // maxRows={selectedProduct ? selectedProduct.maxAmount : 1}
-        // minRows={0}
+        label={'Quantity'}
+        InputLabelProps={{
+          shrink: true
+        }}
         InputProps={{
           inputProps: {
             min: 0,
@@ -38,6 +52,7 @@ export const CostCalc = () => {
         value={selectedProduct ? selectedProduct.quantity : 0}
         onChange={handleChange}
       />
+      <DisplayTotalCost />
     </CostCalcContainer>
   );
 };

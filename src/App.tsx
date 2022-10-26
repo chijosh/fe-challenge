@@ -17,7 +17,7 @@ function App() {
   });
   const dispatch = useDispatch();
   const { products } = useSelector((state: AppState) => state.AllProducts);
-  const { selectedProduct } = useSelector((state: AppState) => state);
+  const { selectedProduct, cart } = useSelector((state: AppState) => state);
 
   useEffect(() => {
     const fetchData = () => {
@@ -52,9 +52,7 @@ function App() {
       {products && (
         <AppContainer>
           <Products />
-          {!isEmpty(selectedProduct) && (
-            <CartDetails product={selectedProduct} />
-          )}
+          {!isEmpty(cart) && <CartDetails product={selectedProduct} />}
           <Cart />
         </AppContainer>
       )}
