@@ -20,8 +20,6 @@ export const CartDetails = ({ product }: any) => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state: AppState) => state);
 
-  console.log({ cart });
-
   const handleDelete = (id: string) => {
     dispatch(removeFromBasket(id));
   };
@@ -45,14 +43,14 @@ export const CartDetails = ({ product }: any) => {
         {cart
           ? cart.map((selectedCart: IProductItem) => {
               return (
-                <tbody>
-                  <TableRow key={selectedCart.id}>
+                <tbody key={selectedCart.id}>
+                  <TableRow>
                     <CardDetail>{selectedCart.productName}</CardDetail>
                     <CardDetail>{selectedCart.price}</CardDetail>
                     <CardDetail>{selectedCart.quantity}</CardDetail>
-                    <CardDetail>{`${
+                    <CardDetail>{`${(
                       selectedCart.quantity * selectedCart.price
-                    }`}</CardDetail>
+                    ).toFixed(2)}`}</CardDetail>
                     <CardDetailBtn>
                       <IconButton onClick={() => handleDelete(selectedCart.id)}>
                         <DeleteIcon fontSize='inherit' />

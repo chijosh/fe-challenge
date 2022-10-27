@@ -16,10 +16,13 @@ export const CostCalcContainer = styled.div`
     flex: 1 1 15%;
   }
   & > *:nth-child(3) {
-    flex: 1 1 55%;
+    flex: 1 1 15%;
+  }
+  & > *:nth-child(3) {
+    flex: 1 1 25%;
   }
 `;
-export const CostCalculator = styled.div`
+export const CostCalculator = styled.span`
   display: flex;
   margin-left: 8px;
 `;

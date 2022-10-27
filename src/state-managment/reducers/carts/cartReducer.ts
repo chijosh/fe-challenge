@@ -16,12 +16,17 @@ export const cartReducer = (
         : [...state, { ...action.payload }];
     case ActionTypes.REMOVE_FROM_CART:
       return state.filter((product) => product.id !== action.payload);
+    case ActionTypes.UPDATE_CART:
+      return state.map((product) =>
+        product.id === action.payload.id
+          ? { ...state, ...action.payload }
+          : product
+      );
     case ActionTypes.CLEAR_CART:
       return initialState;
-    case ActionTypes.ADD_QTY_ITEM:
+    case ActionTypes.SET_QTY_ITEM:
       return state.map((product) => {
         if (product.id === action.payload.id) {
-          console.log({ product });
           console.log('action.payload', action.payload);
           return {
             ...product,

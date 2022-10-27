@@ -6,14 +6,15 @@ import { Products } from './containers/productDetails';
 import { AppState } from './types';
 import { isEmpty } from './utils';
 
-import { CssBaseline, CircularProgress } from '@mui/material';
+import { CssBaseline, CircularProgress, Collapse } from '@mui/material';
 import { CartDetails } from './containers/cartDetails/CartDetails';
 
 import { AppContainer, CirclularContainer } from './style';
 
 function App() {
   const [state, setState] = useState({
-    loading: true
+    loading: true,
+    itemInCart: false
   });
   const dispatch = useDispatch();
   const { products } = useSelector((state: AppState) => state.AllProducts);
@@ -30,13 +31,19 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           dispatch(setProducts(data));
-          setState({ loading: false });
+          setState({ ...state, loading: false });
         })
         .catch((err) => console.error(err));
     };
 
     fetchData();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isEmpty(cart)) {
+      setState({ ...state, itemInCart: true });
+    }
+  }, [cart]);
 
   if (state.loading === true) {
     return (
@@ -52,8 +59,14 @@ function App() {
       {products && (
         <AppContainer>
           <Products />
-          {!isEmpty(cart) && <CartDetails product={selectedProduct} />}
-          <Cart />
+          <Collapse in={state.itemInCart}>
+            <div>
+              {!isEmpty(cart) && <CartDetails product={selectedProduct} />}
+            </div>
+          </Collapse>
+          <Collapse in={state.itemInCart}>
+            {!isEmpty(cart) && <Cart />}
+          </Collapse>
         </AppContainer>
       )}
     </>

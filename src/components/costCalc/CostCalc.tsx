@@ -22,9 +22,9 @@ export const CostCalc = () => {
     return (
       <>
         {price ? (
-          <CostCalculator>{` x ${price} = ${(quantity * price).toFixed(
-            2
-          )}`}</CostCalculator>
+          <CostCalculator>
+            {` x ${price} = ${(quantity * price).toFixed(2)}`}
+          </CostCalculator>
         ) : (
           <CostCalculator />
         )}
