@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Snackbar, Icon, Alert, Slide } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Snackbar, Alert, Slide } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { clearSnackbar } from '../../state-managment/actions/snackbar/snackbarActions';
