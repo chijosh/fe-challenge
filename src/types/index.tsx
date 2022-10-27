@@ -8,6 +8,7 @@ export interface AppState {
   cart: IProductItem[];
   totalPrice: number;
   totalTaxRate: number;
+  snackbar: any;
 }
 
 export type IProductItem = {

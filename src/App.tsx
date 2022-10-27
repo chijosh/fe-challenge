@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from './state-managment/actions/products/productActions';
@@ -10,6 +11,7 @@ import { CssBaseline, CircularProgress, Collapse } from '@mui/material';
 import { CartDetails } from './containers/cartDetails/CartDetails';
 
 import { AppContainer, CirclularContainer } from './style';
+import { AppSnackbar } from './components/snackbar/Snackbar';
 
 function App() {
   const [state, setState] = useState({
@@ -56,6 +58,7 @@ function App() {
   return (
     <>
       <CssBaseline />
+      <AppSnackbar />
       {products && (
         <AppContainer>
           <Products />

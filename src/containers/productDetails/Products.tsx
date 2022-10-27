@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -39,8 +40,6 @@ const Products = () => {
   };
 
   useEffect(() => {
-    console.log({ selectedProduct });
-    console.log({ state });
     if (
       selectedProduct !== state.item &&
       selectedProduct.id !== state?.item.id

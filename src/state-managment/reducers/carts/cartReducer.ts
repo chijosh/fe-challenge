@@ -27,7 +27,6 @@ export const cartReducer = (
     case ActionTypes.SET_QTY_ITEM:
       return state.map((product) => {
         if (product.id === action.payload.id) {
-          console.log('action.payload', action.payload);
           return {
             ...product,
             quantity: action.payload.quantity
