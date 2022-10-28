@@ -5,7 +5,8 @@ import { AppState } from '../../types';
 import { removeFromBasket } from '../../state-managment/actions/carts/cartActions';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 
-import { Card, IconButton } from '@mui/material';
+import { Card, IconButton, Tooltip, Typography } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
@@ -29,7 +30,15 @@ export const CartDetails = ({ product }: any) => {
   }
 
   return (
-    <Card>
+    <Card sx={{ p: 1 }}>
+      <Typography variant='h4' sx={{ mb: 1 }}>
+        Cart
+        <Tooltip title='Maximum 10 items' placement='right-end'>
+          <IconButton>
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
+      </Typography>
       <CardContentTable>
         <thead>
           <TableRow>

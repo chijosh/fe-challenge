@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { SnackbarProvider } from 'notistack';
 import { store } from './state-managment/store';
 import App from './App';
 
@@ -10,7 +11,9 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <SnackbarProvider maxSnack={3}>
+        <App />
+      </SnackbarProvider>
     </Provider>
   </React.StrictMode>
 );

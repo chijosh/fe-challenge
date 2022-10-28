@@ -21,9 +21,9 @@ export const DropDown = ({ products }: ProductState) => {
     }
   };
   return (
-    <Box>
+    <Box sx={{ width: 250 }}>
       <FormControl fullWidth>
-        <InputLabel id='products-label'>Products</InputLabel>
+        <InputLabel id='products-label'>Select product</InputLabel>
         <Select
           displayEmpty
           labelId='products-label'

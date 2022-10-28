@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const CostCalcContainer = styled.div`
+export const ProductContainer = styled.div`
   display: flex;
   align-items: center;
-  min-width: 500px;
+  width: 100%;
 
   & > * {
     margin-right: 8px;
@@ -16,10 +16,9 @@ export const CostCalcContainer = styled.div`
     flex: 1 1 15%;
   }
   & > *:nth-child(3) {
-    flex: 1 1 55%;
+    flex: 1 1 15%;
   }
-`;
-export const CostCalculator = styled.span`
-  display: flex;
-  margin-left: 8px;
+  & > *:nth-child(4) {
+    flex: 1 1 25%;
+  }
 `;

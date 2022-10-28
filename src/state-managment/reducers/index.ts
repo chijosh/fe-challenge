@@ -4,12 +4,10 @@ import {
   productsReducer,
   selectedProductsReducer
 } from './products/productsReducer';
-import { snackbarReducer } from './snackbar/snackbarReducer';
 
 const rootReducer = combineReducers({
   AllProducts: productsReducer,
   selectedProduct: selectedProductsReducer,
-  cart: cartReducer,
-  snackbar: snackbarReducer
+  cart: cartReducer
 });
 export default rootReducer;

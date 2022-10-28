@@ -11,7 +11,6 @@ import { CssBaseline, CircularProgress, Collapse } from '@mui/material';
 import { CartDetails } from './containers/cartDetails/CartDetails';
 
 import { AppContainer, CirclularContainer } from './style';
-import { AppSnackbar } from './components/snackbar/Snackbar';
 
 function App() {
   const [state, setState] = useState({
@@ -58,14 +57,11 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <AppSnackbar />
       {products && (
         <AppContainer>
           <Products />
           <Collapse in={state.itemInCart}>
-            <div>
-              {!isEmpty(cart) && <CartDetails product={selectedProduct} />}
-            </div>
+            {!isEmpty(cart) && <CartDetails product={selectedProduct} />}
           </Collapse>
           <Collapse in={state.itemInCart}>
             {!isEmpty(cart) && <Cart />}

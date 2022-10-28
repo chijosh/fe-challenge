@@ -20,4 +20,9 @@ export type IProductItem = {
   quantity: number;
 };
 
+export type ISnackbar = {
+  message: string;
+  type: string;
+};
+
 export type CartState = IProductItem[];

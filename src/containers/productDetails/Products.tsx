@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   addToBasket,
@@ -7,15 +7,18 @@ import {
 } from '../../state-managment/actions/carts/cartActions';
 import { AppState } from '../../types';
 import { DropDown } from '../../components/dropDown/DropDown';
+import { useSnackbar } from 'notistack';
 import { CostCalc } from '../../components/costCalc/CostCalc';
 import { CardContainer } from '../../components/cardWrapper/CardWrapper';
 
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { ItemRemaining } from '../../components/itemRemaining/ItemRemaining';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { ProductContainer } from './styles';
 
 const Products = () => {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
     item: {
       id: '',
@@ -27,13 +30,21 @@ const Products = () => {
     }
   });
   const { products } = useSelector((state: AppState) => state.AllProducts);
-  const { selectedProduct } = useSelector((state: AppState) => state);
+  const { selectedProduct, cart } = useSelector((state: AppState) => state);
+
+  const displaySnackbar = useCallback(() => {
+    enqueueSnackbar(`Can't have more than 10 items in cart`, {
+      variant: 'info'
+    });
+  }, [enqueueSnackbar]);
 
   const handleAddtoCart = (type: string) => {
-    setState({ item: selectedProduct });
-
     if (type === 'addToCart') {
-      dispatch(addToBasket(selectedProduct));
+      if (cart.length >= 10) {
+        return displaySnackbar();
+      }
+      setState({ item: selectedProduct });
+      return dispatch(addToBasket(selectedProduct));
     } else {
       dispatch(updateCart(selectedProduct));
     }
@@ -59,26 +70,31 @@ const Products = () => {
 
   return (
     <CardContainer>
-      {products && <DropDown products={products} />}
-      <CostCalc />
-      <ItemRemaining />
-      {state.item.id === '' ? (
-        <Button
-          startIcon={<ShoppingCartIcon />}
-          variant='contained'
-          onClick={() => handleAddtoCart('addToCart')}
-        >
-          Add to cart
-        </Button>
-      ) : (
-        <Button
-          startIcon={<ShoppingCartIcon />}
-          variant='contained'
-          onClick={() => handleAddtoCart('updateCart')}
-        >
-          Update cart
-        </Button>
-      )}
+      <Typography variant='h4' sx={{ mb: 3 }}>
+        Product
+      </Typography>
+      <ProductContainer>
+        {products && <DropDown products={products} />}
+        <CostCalc />
+        <ItemRemaining />
+        {state.item.id === '' ? (
+          <Button
+            startIcon={<ShoppingCartIcon />}
+            variant='contained'
+            onClick={() => handleAddtoCart('addToCart')}
+          >
+            Add to cart
+          </Button>
+        ) : (
+          <Button
+            startIcon={<ShoppingCartIcon />}
+            variant='contained'
+            onClick={() => handleAddtoCart('updateCart')}
+          >
+            Update cart
+          </Button>
+        )}
+      </ProductContainer>
     </CardContainer>
   );
 };
