@@ -5,8 +5,7 @@ import { AppState } from '../../types';
 import { removeFromBasket } from '../../state-managment/actions/carts/cartActions';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 
-import { Card, IconButton, Tooltip, Typography } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
+import { Card, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
@@ -16,8 +15,13 @@ import {
   CardDetail,
   CardDetailBtn
 } from './styles';
+import { Header } from '../../components/header/Header';
 
-export const CartDetails = ({ product }: any) => {
+interface CardDetailsProp {
+  product: IProductItem;
+}
+
+export const CartDetails = ({ product }: CardDetailsProp) => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state: AppState) => state);
 
@@ -31,14 +35,7 @@ export const CartDetails = ({ product }: any) => {
 
   return (
     <Card sx={{ p: 1 }}>
-      <Typography variant='h4' sx={{ mb: 1 }}>
-        Cart
-        <Tooltip title='Maximum 10 items' placement='right-end'>
-          <IconButton>
-            <InfoIcon />
-          </IconButton>
-        </Tooltip>
-      </Typography>
+      <Header label='Cart' tooltip={'Maximum 10 items'} />
       <CardContentTable>
         <thead>
           <TableRow>

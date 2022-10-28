@@ -4,10 +4,11 @@ import { useDispatch } from 'react-redux';
 import { clearCart } from '../../state-managment/actions/carts/cartActions';
 
 import { CardContainer } from '../../components/cardWrapper/CardWrapper';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSnackbar } from 'notistack';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
+import { Header } from '../../components/header/Header';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -27,10 +28,9 @@ const Cart = () => {
 
   return (
     <CardContainer>
-      <Typography variant='h4' sx={{ mb: 3 }}>
-        Checkout
-      </Typography>
+      <Header label='Checkout' />
       <Button
+        color='warning'
         startIcon={<DeleteIcon />}
         variant='contained'
         onClick={() => handleEmptyCart()}

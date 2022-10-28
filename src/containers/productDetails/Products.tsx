@@ -11,10 +11,11 @@ import { useSnackbar } from 'notistack';
 import { CostCalc } from '../../components/costCalc/CostCalc';
 import { CardContainer } from '../../components/cardWrapper/CardWrapper';
 
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { ItemRemaining } from '../../components/itemRemaining/ItemRemaining';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ProductContainer } from './styles';
+import { Header } from '../../components/header/Header';
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -70,9 +71,7 @@ const Products = () => {
 
   return (
     <CardContainer>
-      <Typography variant='h4' sx={{ mb: 3 }}>
-        Product
-      </Typography>
+      <Header label='Product' />
       <ProductContainer>
         {products && <DropDown products={products} />}
         <CostCalc />
@@ -87,6 +86,7 @@ const Products = () => {
           </Button>
         ) : (
           <Button
+            color='secondary'
             startIcon={<ShoppingCartIcon />}
             variant='contained'
             onClick={() => handleAddtoCart('updateCart')}
