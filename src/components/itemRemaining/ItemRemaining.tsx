@@ -8,13 +8,6 @@ export const ItemRemaining = () => {
   const intl = useIntl();
   const { selectedProduct } = useSelector((state: AppState) => state);
 
-  console.log(
-    intl.formatMessage({
-      id: 'inStore',
-      defaultMessage: 'in Store'
-    })
-  );
-
   const ProductInStore = () => {
     return (
       <span>{`${

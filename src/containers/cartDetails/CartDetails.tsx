@@ -5,8 +5,9 @@ import { AppState } from '../../types';
 import { removeFromBasket } from '../../state-managment/actions/carts/cartActions';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 
-import { Card, IconButton } from '@mui/material';
+import { Card, IconButton, Box, Badge } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import {
   CardContentTable,
@@ -35,14 +36,29 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
   }
 
   return (
-    <Card sx={{ p: 1 }}>
-      <Header
-        label={intl.formatMessage({
-          id: 'Cart',
-          defaultMessage: 'Cart'
-        })}
-        tooltip={'Maximum 10 items'}
-      />
+    <Card sx={{ p: 2 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+      >
+        <Header
+          label={intl.formatMessage({
+            id: 'Cart',
+            defaultMessage: 'Cart'
+          })}
+          tooltip={'Maximum 10 items'}
+        />
+        <Badge
+          badgeContent={`${cart.length >= 1 ? cart.length : 0}`}
+          color='info'
+        >
+          <ShoppingCartIcon color='secondary' />
+        </Badge>
+      </Box>
       <CardContentTable>
         <thead>
           <TableRow>
@@ -78,7 +94,7 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
                     ).toFixed(2)}`}</CardDetail>
                     <CardDetailBtn>
                       <IconButton onClick={() => handleDelete(selectedCart.id)}>
-                        <DeleteIcon fontSize='inherit' />
+                        <DeleteIcon color='warning' fontSize='inherit' />
                       </IconButton>
                     </CardDetailBtn>
                   </TableRow>

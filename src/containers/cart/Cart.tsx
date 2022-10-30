@@ -5,13 +5,13 @@ import { useIntl } from 'react-intl';
 import { clearCart } from '../../state-managment/actions/carts/cartActions';
 
 import { CardContainer } from '../../components/cardWrapper/CardWrapper';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSnackbar } from 'notistack';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { Header } from '../../components/header/Header';
 
-const Cart = () => {
+const CartCheckout = () => {
   const intl = useIntl();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -36,16 +36,27 @@ const Cart = () => {
           defaultMessage: 'Checkout'
         })}
       />
-      <Button
-        color='warning'
-        startIcon={<DeleteIcon />}
-        variant='contained'
-        onClick={() => handleEmptyCart()}
+      <Box
+        sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}
       >
-        Empty cart
-      </Button>
+        <Button
+          color='warning'
+          startIcon={<DeleteIcon />}
+          variant='contained'
+          onClick={() => handleEmptyCart()}
+        >
+          Empty cart
+        </Button>
+        <Button
+          startIcon={<DeleteIcon />}
+          variant='contained'
+          onClick={() => handleEmptyCart()}
+        >
+          Buy
+        </Button>
+      </Box>
     </CardContainer>
   );
 };
 
-export { Cart };
+export { CartCheckout };
