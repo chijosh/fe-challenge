@@ -8,7 +8,7 @@ export const AppContainer = styled.div`
   margin-top: 12px;
 
   & > * {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 `;
 export const CirclularContainer = styled.div`

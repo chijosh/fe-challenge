@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { ProductState, AppState, IProductItem } from '../../types';
+import { FormattedMessage } from 'react-intl';
 
 import { MenuItem, FormControl, InputLabel, Box } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -23,12 +24,12 @@ export const DropDown = ({ products }: ProductState) => {
   return (
     <Box sx={{ width: 250 }}>
       <FormControl fullWidth>
-        <InputLabel id='products-label'>Select product</InputLabel>
+        <InputLabel id='products-label'>Products</InputLabel>
         <Select
           displayEmpty
           labelId='products-label'
           id='products'
-          label='Products'
+          label={<FormattedMessage id='product' defaultMessage='Product' />}
           value={selectedProduct ? selectedProduct.productName : ''}
           onChange={handleChange}
         >

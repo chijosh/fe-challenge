@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { AppState } from '../../types';
@@ -11,7 +11,6 @@ import { CostCalcContainer, CostCalculator } from './styles';
 
 export const CostCalc = () => {
   const dispatch = useDispatch();
-  const intl = useIntl();
   const [state, setState] = useState({
     price: 0,
     quantity: 0,
@@ -48,7 +47,7 @@ export const CostCalc = () => {
       <>
         {price ? (
           <CostCalculator>
-            {` x ${price} = ${(quantity * price).toFixed(2)}`}
+            {` x ${price} = $${(quantity * price).toFixed(2)}`}
           </CostCalculator>
         ) : (
           <CostCalculator />
@@ -69,10 +68,7 @@ export const CostCalc = () => {
       <TextField
         type='number'
         variant='outlined'
-        label={intl.formatMessage({
-          id: 'Quantity',
-          defaultMessage: 'Quantity'
-        })}
+        label={<FormattedMessage id='quantity' defaultMessage='Quantity' />}
         InputLabelProps={{
           shrink: true
         }}

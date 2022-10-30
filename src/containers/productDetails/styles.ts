@@ -6,7 +6,7 @@ export const ProductContainer = styled.div`
   width: 100%;
 
   & > * {
-    margin-right: 8px;
+    margin-right: 16px;
   }
 
   & > *:nth-child(1) {

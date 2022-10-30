@@ -1,4 +1,4 @@
-import { useIntl } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import { IProductItem } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../types';
@@ -46,10 +46,22 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
       <CardContentTable>
         <thead>
           <TableRow>
-            <TableHeader>Product name</TableHeader>
-            <TableHeader>Unit price</TableHeader>
-            <TableHeader>Amount</TableHeader>
-            <TableHeader>Price</TableHeader>
+            <TableHeader>
+              <FormattedMessage
+                id='productName'
+                defaultMessage='Product name'
+              />
+            </TableHeader>
+            <TableHeader>
+              <FormattedMessage id='unitPrice' defaultMessage='Unit price' />
+            </TableHeader>
+            <TableHeader>
+              <FormattedMessage id='amount' defaultMessage='Amount' />
+            </TableHeader>
+            <TableHeader>
+              Price
+              <FormattedMessage id='price' defaultMessage='Price' />
+            </TableHeader>
             <TableHeader></TableHeader>
           </TableRow>
         </thead>

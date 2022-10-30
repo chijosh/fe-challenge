@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
 
 import { clearCart } from '../../state-managment/actions/carts/cartActions';
 
@@ -11,6 +12,7 @@ import { removeSelectedProduct } from '../../state-managment/actions/products/pr
 import { Header } from '../../components/header/Header';
 
 const Cart = () => {
+  const intl = useIntl();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -28,7 +30,12 @@ const Cart = () => {
 
   return (
     <CardContainer>
-      <Header label='Checkout' />
+      <Header
+        label={intl.formatMessage({
+          id: 'checkout',
+          defaultMessage: 'Checkout'
+        })}
+      />
       <Button
         color='warning'
         startIcon={<DeleteIcon />}
