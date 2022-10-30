@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
+import { AppState, IProductItem } from '../../types';
 import { clearCart } from '../../state-managment/actions/carts/cartActions';
 
 import { CardContainer } from '../../components/cardWrapper/CardWrapper';
@@ -15,6 +16,7 @@ const CartCheckout = () => {
   const intl = useIntl();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const { cart } = useSelector((state: AppState) => state);
 
   const displaySnackbar = useCallback(() => {
     enqueueSnackbar(`Cart successfully cleared`, {
@@ -28,6 +30,24 @@ const CartCheckout = () => {
     displaySnackbar();
   };
 
+  console.log({ cart });
+
+  const getTotalCost = () => {
+    let totalCostArr: Array<number> = [];
+
+    cart.forEach((value: IProductItem) => {
+      totalCostArr.push(value.price);
+    });
+
+    const value = totalCostArr.reduce((accumulator, value) => {
+      return accumulator + value;
+    }, 0);
+
+    console.log({ value });
+
+    return value;
+  };
+
   return (
     <CardContainer>
       <Header
@@ -37,23 +57,40 @@ const CartCheckout = () => {
         })}
       />
       <Box
-        sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}
+        sx={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end'
+        }}
       >
         <Button
           color='warning'
           startIcon={<DeleteIcon />}
           variant='contained'
           onClick={() => handleEmptyCart()}
+          sx={{ height: '40px' }}
         >
           Empty cart
         </Button>
-        <Button
-          startIcon={<DeleteIcon />}
-          variant='contained'
-          onClick={() => handleEmptyCart()}
+        <Box
+          sx={{
+            height: '70px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
         >
-          Buy
-        </Button>
+          <span>{`$${getTotalCost()}`}</span>
+          <Button
+            startIcon={<DeleteIcon />}
+            variant='contained'
+            onClick={() => handleEmptyCart()}
+          >
+            Buy
+          </Button>
+        </Box>
       </Box>
     </CardContainer>
   );
