@@ -1,4 +1,4 @@
-import React from 'react';
+import { useIntl } from 'react-intl';
 import { IProductItem } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../types';
@@ -22,6 +22,7 @@ interface CardDetailsProp {
 }
 
 export const CartDetails = ({ product }: CardDetailsProp) => {
+  const intl = useIntl();
   const dispatch = useDispatch();
   const { cart } = useSelector((state: AppState) => state);
 
@@ -35,7 +36,13 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
 
   return (
     <Card sx={{ p: 1 }}>
-      <Header label='Cart' tooltip={'Maximum 10 items'} />
+      <Header
+        label={intl.formatMessage({
+          id: 'Cart',
+          defaultMessage: 'Cart'
+        })}
+        tooltip={'Maximum 10 items'}
+      />
       <CardContentTable>
         <thead>
           <TableRow>

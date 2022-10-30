@@ -1,0 +1,13 @@
+{
+  "product": "Produkt",
+  "cart": "Wagen",
+  "checkout": "Kasse",
+  "inStore": "auf Lager",
+  "addToCart": "in den Warenkorb legen",
+  "updateCart": "Warenkorb aktualisieren",
+  "Quantity": "Anzahl",
+  "InStore": "auf Lager",
+  "productName": "Produktname",
+  "amount": "Menge",
+  "price": "Preis"
+}

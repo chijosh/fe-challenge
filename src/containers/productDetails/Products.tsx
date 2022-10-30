@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
 import {
   addToBasket,
   updateCart
@@ -16,8 +17,10 @@ import { ItemRemaining } from '../../components/itemRemaining/ItemRemaining';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ProductContainer } from './styles';
 import { Header } from '../../components/header/Header';
+import { isEmpty } from '../../utils';
 
 const Products = () => {
+  const intl = useIntl();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
@@ -52,6 +55,7 @@ const Products = () => {
   };
 
   useEffect(() => {
+    // Update state only when new item is selected
     if (
       selectedProduct !== state.item &&
       selectedProduct.id !== state?.item.id
@@ -71,13 +75,19 @@ const Products = () => {
 
   return (
     <CardContainer>
-      <Header label='Product' />
+      <Header
+        label={intl.formatMessage({
+          id: 'product',
+          defaultMessage: 'Product'
+        })}
+      />
       <ProductContainer>
         {products && <DropDown products={products} />}
         <CostCalc />
         <ItemRemaining />
         {state.item.id === '' ? (
           <Button
+            disabled={isEmpty(selectedProduct) ? true : false}
             startIcon={<ShoppingCartIcon />}
             variant='contained'
             onClick={() => handleAddtoCart('addToCart')}

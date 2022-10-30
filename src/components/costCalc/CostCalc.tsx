@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIntl } from 'react-intl';
 
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { AppState } from '../../types';
@@ -9,16 +11,39 @@ import { CostCalcContainer, CostCalculator } from './styles';
 
 export const CostCalc = () => {
   const dispatch = useDispatch();
+  const intl = useIntl();
+  const [state, setState] = useState({
+    price: 0,
+    quantity: 0,
+    maxAmount: 1
+  });
   const { selectedProduct } = useSelector((state: AppState) => state);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (selectedProduct.quantity) {
+      setState({
+        ...state,
+        ...selectedProduct
+      });
+    }
+  }, [selectedProduct.quantity]);
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    console.log(event.type);
+
+    const quantity = newValue as number;
+    dispatch(setSelectedProduct({ ...selectedProduct, quantity }));
+    setState({ ...selectedProduct, quantity });
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const quantity = Number(event.target.value);
 
-    dispatch(setSelectedProduct({ ...selectedProduct, quantity }));
+    setState({ ...state, quantity });
   };
 
   const DisplayTotalCost = () => {
-    const { quantity, price } = selectedProduct;
+    const { quantity, price } = state;
     return (
       <>
         {price ? (
@@ -34,22 +59,34 @@ export const CostCalc = () => {
 
   return (
     <CostCalcContainer>
-      <Slider disabled defaultValue={30} aria-label='Disabled slider' />
+      <Slider
+        disabled={!state.quantity ? true : false}
+        onChange={handleSliderChange}
+        value={state.quantity ? state.quantity : 0}
+        max={state.maxAmount}
+        min={0}
+      />
       <TextField
         type='number'
         variant='outlined'
-        label={'Quantity'}
+        label={intl.formatMessage({
+          id: 'Quantity',
+          defaultMessage: 'Quantity'
+        })}
         InputLabelProps={{
           shrink: true
         }}
         InputProps={{
           inputProps: {
             min: 0,
-            max: selectedProduct ? selectedProduct.maxAmount : 1
+            max: state.quantity ? state.maxAmount : 1
           }
         }}
-        value={selectedProduct ? selectedProduct.quantity : 0}
+        value={state.quantity ? state.quantity : 0}
         onChange={handleChange}
+        onMouseUp={() => {
+          dispatch(setSelectedProduct({ ...selectedProduct, ...state }));
+        }}
       />
       <DisplayTotalCost />
     </CostCalcContainer>
