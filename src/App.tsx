@@ -11,6 +11,7 @@ import { CssBaseline, CircularProgress, Collapse } from '@mui/material';
 import { CartDetails } from './containers/cartDetails/CartDetails';
 import { AppContainer, CirclularContainer } from './style';
 import { AppHeader } from './components/appheader/AppHeader';
+import { AppModal } from './components/modal/Modal';
 
 function App() {
   const [state, setState] = useState({
@@ -58,6 +59,7 @@ function App() {
     <>
       <CssBaseline />
       <AppHeader />
+      <AppModal />
       {products && (
         <AppContainer>
           <Products />

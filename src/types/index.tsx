@@ -2,10 +2,15 @@ export interface ProductState {
   products: Array<IProductItem>;
 }
 
+export interface ModalState {
+  isModalOpen: boolean;
+}
+
 export interface AppState {
   AllProducts: ProductState;
   selectedProduct: IProductItem;
   cart: IProductItem[];
+  modal: ModalState;
   totalPrice: number;
   totalTaxRate: number;
   snackbar: any;

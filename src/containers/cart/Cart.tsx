@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { AppState, IProductItem } from '../../types';
 import { clearCart } from '../../state-managment/actions/carts/cartActions';
+import { setModalDisplay } from '../../state-managment/actions/modal/modalActions';
 
 import { CardContainer } from '../../components/cardWrapper/CardWrapper';
 import { Button, Box } from '@mui/material';
@@ -29,21 +30,23 @@ const CartCheckout = () => {
     dispatch(removeSelectedProduct());
     displaySnackbar();
   };
-
-  console.log({ cart });
+  const handlePayment = () => {
+    dispatch(setModalDisplay({ isModalOpen: true }));
+  };
 
   const getTotalCost = () => {
     let totalCostArr: Array<number> = [];
 
     cart.forEach((value: IProductItem) => {
-      totalCostArr.push(value.price);
+      if (value.quantity > 1) {
+        return totalCostArr.push(value.price * value.quantity);
+      }
+      return totalCostArr.push(value.price);
     });
 
     const value = totalCostArr.reduce((accumulator, value) => {
       return accumulator + value;
     }, 0);
-
-    console.log({ value });
 
     return value;
   };
@@ -82,11 +85,11 @@ const CartCheckout = () => {
             alignItems: 'center'
           }}
         >
-          <span>{`$${getTotalCost()}`}</span>
+          <span>{`$${getTotalCost().toFixed(2)}`}</span>
           <Button
             startIcon={<DeleteIcon />}
             variant='contained'
-            onClick={() => handleEmptyCart()}
+            onClick={() => handlePayment()}
           >
             Buy
           </Button>
