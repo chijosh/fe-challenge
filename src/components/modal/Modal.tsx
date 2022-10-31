@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalDisplay } from '../../state-managment/actions/modal/modalActions';
+import { clearCart } from '../../state-managment/actions/carts/cartActions';
+import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 import {
   Dialog,
   Button,
@@ -15,7 +17,11 @@ const AppModal = () => {
   const dispatch = useDispatch();
   const { modal } = useSelector((state: AppState) => state);
 
-  const handleClose = () => dispatch(setModalDisplay({ isModalOpen: false }));
+  const handleClose = () => {
+    dispatch(clearCart());
+    dispatch(removeSelectedProduct());
+    dispatch(setModalDisplay({ isModalOpen: false }));
+  };
 
   return (
     <div>
