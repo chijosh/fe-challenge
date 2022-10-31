@@ -14,18 +14,19 @@ export const CostCalc = () => {
   const [state, setState] = useState({
     price: 0,
     quantity: 0,
-    maxAmount: 1
+    maxAmount: 0
   });
   const { selectedProduct } = useSelector((state: AppState) => state);
 
   useEffect(() => {
-    if (selectedProduct.quantity) {
-      setState({
-        ...state,
-        ...selectedProduct
-      });
-    }
-  }, [selectedProduct.quantity]);
+    const { maxAmount, price, quantity } = selectedProduct;
+    setState({
+      ...state,
+      price,
+      quantity,
+      maxAmount
+    });
+  }, [selectedProduct]);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     console.log(event.type);
@@ -56,6 +57,8 @@ export const CostCalc = () => {
     );
   };
 
+  console.log({ state });
+
   return (
     <CostCalcContainer>
       <Slider
@@ -66,6 +69,7 @@ export const CostCalc = () => {
         min={0}
       />
       <TextField
+        disabled={!state.quantity ? true : false}
         type='number'
         variant='outlined'
         label={<FormattedMessage id='quantity' defaultMessage='Quantity' />}
