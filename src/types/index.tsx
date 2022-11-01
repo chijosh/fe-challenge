@@ -5,10 +5,16 @@ export interface ProductState {
 export interface ModalState {
   isModalOpen: boolean;
 }
+export interface ThemeState {
+  isDarkTheme: boolean;
+}
 
 export interface locale {
   locale: string;
   messages: Record<string, string>;
+}
+export interface themeState {
+  isDarkTheme: false;
 }
 
 export interface AppState {
@@ -20,6 +26,7 @@ export interface AppState {
   totalTaxRate: number;
   snackbar: any;
   locale: locale;
+  themePref: themeState;
 }
 
 export type IProductItem = {

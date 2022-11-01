@@ -1,25 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { updateIntl } from 'react-intl-redux';
 import { SnackbarProvider } from 'notistack';
 import { store } from './state-managment/store';
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { lang } from './locales';
-import { theme } from './theme';
+import { getAppTheme } from './theme';
 import App from './App';
+import { AppState } from './types';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 const LoadIntl = () => {
   const dispatch = useDispatch();
+  const { themePref } = useSelector((state: AppState) => state);
+
   const [state, setState] = useState({
     locale: 'en',
-    messages: lang.en
+    messages: lang.en,
+    theme: 'white'
   });
 
   useEffect(() => {
@@ -39,11 +43,28 @@ const LoadIntl = () => {
     );
   }, []);
 
+  useMemo(() => {
+    if (themePref.isDarkTheme) {
+      setState({ ...state, theme: 'dark' });
+    } else {
+      setState({ ...state, theme: 'light' });
+    }
+  }, [themePref]);
+
+  const theme = useMemo(
+    () => createTheme(getAppTheme(state.theme)),
+    [state.theme]
+  );
+
   return (
     <>
-      <IntlProvider locale={state.locale} messages={state.messages}>
-        <App />
-      </IntlProvider>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider maxSnack={3}>
+          <IntlProvider locale={state.locale} messages={state.messages}>
+            <App />
+          </IntlProvider>
+        </SnackbarProvider>
+      </ThemeProvider>
     </>
   );
 };
@@ -51,11 +72,7 @@ const LoadIntl = () => {
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={3}>
-          <LoadIntl />
-        </SnackbarProvider>
-      </ThemeProvider>
+      <LoadIntl />
     </Provider>
   </React.StrictMode>
 );

@@ -6,12 +6,14 @@ import {
   productsReducer,
   selectedProductsReducer
 } from './products/productsReducer';
+import { themeReducer } from './theme/themeReducer';
 
 const rootReducer = combineReducers({
   AllProducts: productsReducer,
   selectedProduct: selectedProductsReducer,
   cart: cartReducer,
   modal: modalReducer,
-  locale: intlReducer
+  locale: intlReducer,
+  themePref: themeReducer
 });
 export default rootReducer;

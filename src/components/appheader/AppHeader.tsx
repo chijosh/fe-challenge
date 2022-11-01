@@ -1,7 +1,9 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 import { useState, MouseEvent } from 'react';
 import { updateIntl } from 'react-intl-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../types';
+
 import {
   Typography,
   IconButton,
@@ -11,12 +13,16 @@ import {
   Menu
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 import { lang } from '../../locales';
 import Button from '@mui/material/Button';
+import { toggleThemeAction } from '../../state-managment/actions/theme/themeActions';
 
 export function AppHeader() {
   const dispatch = useDispatch();
+  const { themePref } = useSelector((state: AppState) => state);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
@@ -37,6 +43,10 @@ export function AppHeader() {
     setAnchorEl(null);
   };
 
+  const handleThemeColor = () => {
+    dispatch(toggleThemeAction());
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -53,6 +63,17 @@ export function AppHeader() {
           </Typography>
 
           <div>
+            <IconButton
+              sx={{ ml: 1 }}
+              onClick={handleThemeColor}
+              color='inherit'
+            >
+              {!themePref.isDarkTheme ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
             <IconButton
               size='large'
               aria-label='account of current user'

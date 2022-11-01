@@ -14,7 +14,7 @@ export const CardContentTable = styled.table`
   width: 100%;
 
   & > *:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f2f2fc85;
   }
 `;
 

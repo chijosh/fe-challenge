@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Paper } from '@mui/material';
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled(Paper)`
   display: flex;
   flex-direction: column;
   min-height: 200px;
