@@ -5,3 +5,9 @@ export function isEmpty(obj: any) {
 
   return true;
 }
+
+export function handleIntl(key: string, intlObj: Record<string, any>): string {
+  if (isEmpty(intlObj.messages)) return key;
+
+  return intlObj.messages[key];
+}

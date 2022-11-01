@@ -2,14 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { ProductState, AppState, IProductItem } from '../../types';
-import { FormattedMessage } from 'react-intl';
 
 import { MenuItem, FormControl, InputLabel, Box } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { handleIntl } from '../../utils';
 
 export const DropDown = ({ products }: ProductState) => {
   const dispatch = useDispatch();
-  const { selectedProduct } = useSelector((state: AppState) => state);
+  const { selectedProduct, locale } = useSelector((state: AppState) => state);
   const handleChange = (event: SelectChangeEvent) => {
     const {
       target: { value }
@@ -24,12 +24,14 @@ export const DropDown = ({ products }: ProductState) => {
   return (
     <Box sx={{ width: 250 }}>
       <FormControl fullWidth>
-        <InputLabel id='products-label'>Products</InputLabel>
+        <InputLabel id='products-label'>
+          {handleIntl('products', locale)}
+        </InputLabel>
         <Select
           displayEmpty
           labelId='products-label'
           id='products'
-          label={<FormattedMessage id='product' defaultMessage='Product' />}
+          label={handleIntl('products', locale)}
           value={selectedProduct ? selectedProduct.productName : ''}
           onChange={handleChange}
         >

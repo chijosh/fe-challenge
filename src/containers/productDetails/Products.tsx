@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useIntl } from 'react-intl';
 import {
   addToBasket,
   updateCart
@@ -17,10 +16,9 @@ import { ItemRemaining } from '../../components/itemRemaining/ItemRemaining';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ProductContainer } from './styles';
 import { Header } from '../../components/header/Header';
-import { isEmpty } from '../../utils';
+import { handleIntl, isEmpty } from '../../utils';
 
 const Products = () => {
-  const intl = useIntl();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
@@ -34,10 +32,12 @@ const Products = () => {
     }
   });
   const { products } = useSelector((state: AppState) => state.AllProducts);
-  const { selectedProduct, cart } = useSelector((state: AppState) => state);
+  const { selectedProduct, cart, locale } = useSelector(
+    (state: AppState) => state
+  );
 
   const displaySnackbar = useCallback(() => {
-    enqueueSnackbar(`Can't have more than 10 items in cart`, {
+    enqueueSnackbar(handleIntl('cartMaxItem', locale), {
       variant: 'info'
     });
   }, [enqueueSnackbar]);
@@ -75,12 +75,7 @@ const Products = () => {
 
   return (
     <CardContainer>
-      <Header
-        label={intl.formatMessage({
-          id: 'product',
-          defaultMessage: 'Product'
-        })}
-      />
+      <Header label={handleIntl('product', locale)} />
       <ProductContainer>
         {products && <DropDown products={products} />}
         <CostCalc />
@@ -92,7 +87,7 @@ const Products = () => {
             variant='contained'
             onClick={() => handleAddtoCart('addToCart')}
           >
-            Add to cart
+            {handleIntl('addToCart', locale)}
           </Button>
         ) : (
           <Button
@@ -101,7 +96,7 @@ const Products = () => {
             variant='contained'
             onClick={() => handleAddtoCart('updateCart')}
           >
-            Update cart
+            {handleIntl('updateCart', locale)}
           </Button>
         )}
       </ProductContainer>

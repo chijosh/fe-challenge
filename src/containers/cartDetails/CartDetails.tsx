@@ -1,13 +1,14 @@
-import { useIntl, FormattedMessage } from 'react-intl';
+import { useState } from 'react';
 import { IProductItem } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../types';
 import { removeFromBasket } from '../../state-managment/actions/carts/cartActions';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 
-import { Card, IconButton, Box, Badge } from '@mui/material';
+import { Card, IconButton, Box, Badge, TextField, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import {
   CardContentTable,
@@ -17,15 +18,16 @@ import {
   CardDetailBtn
 } from './styles';
 import { Header } from '../../components/header/Header';
+import { handleIntl } from '../../utils';
 
 interface CardDetailsProp {
   product: IProductItem;
 }
 
 export const CartDetails = ({ product }: CardDetailsProp) => {
-  const intl = useIntl();
   const dispatch = useDispatch();
-  const { cart } = useSelector((state: AppState) => state);
+  const [state, setState] = useState({ isSelected: false, id: '' });
+  const { cart, locale } = useSelector((state: AppState) => state);
 
   const handleDelete = (id: string) => {
     dispatch(removeFromBasket(id));
@@ -34,6 +36,19 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
   if (cart.length === 0) {
     dispatch(removeSelectedProduct());
   }
+
+  const handleSelected = (id: string) => {
+    setState({
+      ...state,
+      isSelected: true!
+    });
+  };
+  const handleUpdateQty = () => {
+    console.log('Updateed');
+    // setState({
+    //   isSelected: true!
+    // });
+  };
 
   return (
     <Card sx={{ p: 2 }}>
@@ -46,10 +61,7 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
         }}
       >
         <Header
-          label={intl.formatMessage({
-            id: 'Cart',
-            defaultMessage: 'Cart'
-          })}
+          label={handleIntl('cart', locale)}
           tooltip={'Maximum 10 items'}
         />
         <Badge
@@ -62,33 +74,68 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
       <CardContentTable>
         <thead>
           <TableRow>
-            <TableHeader>
-              <FormattedMessage
-                id='productName'
-                defaultMessage='Product name'
-              />
-            </TableHeader>
-            <TableHeader>
-              <FormattedMessage id='unitPrice' defaultMessage='Unit price' />
-            </TableHeader>
-            <TableHeader>
-              <FormattedMessage id='amount' defaultMessage='Amount' />
-            </TableHeader>
-            <TableHeader>
-              Price
-              <FormattedMessage id='price' defaultMessage='Price' />
-            </TableHeader>
+            <TableHeader>{handleIntl('productName', locale)}</TableHeader>
+            <TableHeader>{handleIntl('unitPrice', locale)}</TableHeader>
+            <TableHeader>{handleIntl('amount', locale)}</TableHeader>
+            <TableHeader>{handleIntl('price', locale)}</TableHeader>
             <TableHeader></TableHeader>
           </TableRow>
         </thead>
         {cart
           ? cart.map((selectedCart: IProductItem) => {
               return (
-                <tbody key={selectedCart.id}>
+                <tbody
+                  key={selectedCart.id}
+                  onClick={() => handleSelected(selectedCart.id)}
+                >
                   <TableRow>
                     <CardDetail>{selectedCart.productName}</CardDetail>
                     <CardDetail>{selectedCart.price}</CardDetail>
-                    <CardDetail>{selectedCart.quantity}</CardDetail>
+                    {state.isSelected ? (
+                      <CardDetail
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          width: '100%'
+                        }}
+                      >
+                        <TextField
+                          disabled={!selectedCart.quantity ? true : false}
+                          type='number'
+                          variant='outlined'
+                          InputLabelProps={{
+                            shrink: true
+                          }}
+                          InputProps={{
+                            inputProps: {
+                              min: 0,
+                              max: selectedCart.quantity
+                                ? selectedCart.maxAmount
+                                : 1
+                            }
+                          }}
+                          value={
+                            selectedCart.quantity ? selectedCart.quantity : 0
+                          }
+                          // onChange={handleSelected}
+                          onMouseUp={() => {
+                            // dispatch(
+                            // setSelectedProduct({ ...selectedProduct, ...state })
+                            // );
+                          }}
+                        />
+                        <Button
+                          onClick={handleUpdateQty}
+                          sx={{ textAlign: 'center' }}
+                          color='secondary'
+                        >
+                          <CheckCircleIcon />
+                          {handleIntl('Update', locale)}
+                        </Button>
+                      </CardDetail>
+                    ) : (
+                      <CardDetail>{selectedCart.quantity}</CardDetail>
+                    )}
                     <CardDetail>{`${(
                       selectedCart.quantity * selectedCart.price
                     ).toFixed(2)}`}</CardDetail>

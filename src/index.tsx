@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { updateIntl } from 'react-intl-redux';
 import { SnackbarProvider } from 'notistack';
 import { store } from './state-managment/store';
 import { ThemeProvider } from '@mui/material/styles';
 
-import * as locales from './locales';
+import { lang } from './locales';
 import { theme } from './theme';
 import App from './App';
 
@@ -15,9 +16,10 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 const LoadIntl = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     locale: 'en',
-    messages: locales.en
+    messages: lang.en
   });
 
   useEffect(() => {
@@ -25,8 +27,16 @@ const LoadIntl = () => {
     setState({
       ...state,
       locale: userLang.slice(0, 2),
-      messages: (locales as any)[`${userLang.slice(0, 2)}`]
+      messages: lang[`${userLang.slice(0, 2)}`]
     });
+
+    // Dispatching because IntlProvider not passing locale object
+    dispatch(
+      updateIntl({
+        locale: userLang.slice(0, 2),
+        messages: lang[`${userLang.slice(0, 2)}`] //lang.de
+      })
+    );
   }, []);
 
   return (

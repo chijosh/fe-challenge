@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 
 import { setSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { AppState } from '../../types';
 
 import { Slider, TextField } from '@mui/material';
 import { CostCalcContainer, CostCalculator } from './styles';
+import { handleIntl } from '../../utils';
 
 export const CostCalc = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const CostCalc = () => {
     quantity: 0,
     maxAmount: 0
   });
-  const { selectedProduct } = useSelector((state: AppState) => state);
+  const { selectedProduct, locale } = useSelector((state: AppState) => state);
 
   useEffect(() => {
     const { maxAmount, price, quantity } = selectedProduct;
@@ -29,8 +29,6 @@ export const CostCalc = () => {
   }, [selectedProduct]);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    console.log(event.type);
-
     const quantity = newValue as number;
     dispatch(setSelectedProduct({ ...selectedProduct, quantity }));
     setState({ ...selectedProduct, quantity });
@@ -57,8 +55,6 @@ export const CostCalc = () => {
     );
   };
 
-  console.log({ state });
-
   return (
     <CostCalcContainer>
       <Slider
@@ -72,7 +68,7 @@ export const CostCalc = () => {
         disabled={!state.quantity ? true : false}
         type='number'
         variant='outlined'
-        label={<FormattedMessage id='quantity' defaultMessage='Quantity' />}
+        label={handleIntl('quantity', locale)}
         InputLabelProps={{
           shrink: true
         }}

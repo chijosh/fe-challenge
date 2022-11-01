@@ -6,6 +6,11 @@ export interface ModalState {
   isModalOpen: boolean;
 }
 
+export interface locale {
+  locale: string;
+  messages: Record<string, string>;
+}
+
 export interface AppState {
   AllProducts: ProductState;
   selectedProduct: IProductItem;
@@ -14,6 +19,7 @@ export interface AppState {
   totalPrice: number;
   totalTaxRate: number;
   snackbar: any;
+  locale: locale;
 }
 
 export type IProductItem = {

@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const TableRow = styled.tr`
   text-align: center;
+
+  &:hover {
+    background-color: #ddd;
+  }
 `;
 
 export const CardContentTable = styled.table`
@@ -18,6 +22,7 @@ export const TableHeader = styled.th`
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
+  text-transform: capitalize;
 
   border: 1px solid #ddd;
   padding: 4px;

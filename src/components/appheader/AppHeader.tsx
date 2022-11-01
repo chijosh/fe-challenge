@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
-import * as index from '../../locales';
+import { lang } from '../../locales';
 import Button from '@mui/material/Button';
 
 export function AppHeader() {
@@ -27,7 +27,7 @@ export function AppHeader() {
     dispatch(
       updateIntl({
         locale: event.currentTarget.value,
-        messages: (index as any)[`${event.currentTarget.value}`] //locales.de
+        messages: lang[event.currentTarget.value] //lang.de
       })
     );
     setAnchorEl(null);

@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIntl } from 'react-intl';
 
 import { AppState, IProductItem } from '../../types';
 import { clearCart } from '../../state-managment/actions/carts/cartActions';
@@ -12,18 +11,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useSnackbar } from 'notistack';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 import { Header } from '../../components/header/Header';
+import { handleIntl } from '../../utils';
 
 const CartCheckout = () => {
-  const intl = useIntl();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { cart } = useSelector((state: AppState) => state);
+  const { cart, locale } = useSelector((state: AppState) => state);
 
   const displaySnackbar = useCallback(() => {
-    enqueueSnackbar(`Cart successfully cleared`, {
+    enqueueSnackbar(handleIntl('cartClearedSuccess', locale), {
       variant: 'success'
     });
-  }, [enqueueSnackbar]);
+  }, [enqueueSnackbar, locale]);
 
   const handleEmptyCart = () => {
     dispatch(clearCart());
@@ -53,12 +52,7 @@ const CartCheckout = () => {
 
   return (
     <CardContainer>
-      <Header
-        label={intl.formatMessage({
-          id: 'checkout',
-          defaultMessage: 'Checkout'
-        })}
-      />
+      <Header label={handleIntl('checkout', locale)} />
       <Box
         sx={{
           display: 'flex',
@@ -74,7 +68,7 @@ const CartCheckout = () => {
           onClick={() => handleEmptyCart()}
           sx={{ height: '40px' }}
         >
-          Empty cart
+          {handleIntl('emptyCart', locale)}
         </Button>
         <Box
           sx={{
@@ -91,7 +85,7 @@ const CartCheckout = () => {
             variant='contained'
             onClick={() => handlePayment()}
           >
-            Buy
+            {handleIntl('buy', locale)}
           </Button>
         </Box>
       </Box>

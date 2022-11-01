@@ -10,7 +10,7 @@ interface HeaderProp {
 export const Header = ({ label, tooltip }: HeaderProp) => {
   return (
     <div>
-      <Typography variant='h4' sx={{ mb: 1 }}>
+      <Typography variant='h4' sx={{ mb: 1, textTransform: 'capitalize' }}>
         {label ? label : ''}
         {tooltip && (
           <Tooltip title={tooltip} placement='right-end'>
