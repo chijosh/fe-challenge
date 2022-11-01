@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { IProductItem } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../types';
-import { removeFromBasket } from '../../state-managment/actions/carts/cartActions';
+import {
+  removeFromBasket,
+  updateCart
+} from '../../state-managment/actions/carts/cartActions';
 import { removeSelectedProduct } from '../../state-managment/actions/products/productActions';
 
 import { Card, IconButton, Box, Badge, TextField, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import EditIcon from '@mui/icons-material/Edit';
 
 import {
   CardContentTable,
@@ -26,7 +30,10 @@ interface CardDetailsProp {
 
 export const CartDetails = ({ product }: CardDetailsProp) => {
   const dispatch = useDispatch();
-  const [state, setState] = useState({ isSelected: false, id: '' });
+  const [state, setState] = useState({
+    isSelected: false,
+    selectedItem: {} as IProductItem
+  });
   const { cart, locale } = useSelector((state: AppState) => state);
 
   const handleDelete = (id: string) => {
@@ -37,17 +44,46 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
     dispatch(removeSelectedProduct());
   }
 
-  const handleSelected = (id: string) => {
+  const handleSelected = (selectedItem: IProductItem) => {
     setState({
       ...state,
-      isSelected: true!
+      isSelected: true,
+      selectedItem: { ...selectedItem }
     });
   };
-  const handleUpdateQty = () => {
-    console.log('Updateed');
-    // setState({
-    //   isSelected: true!
-    // });
+
+  const handleUpdateQty = (event: ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      selectedItem: {
+        ...state.selectedItem,
+        quantity: parseInt(event.target.value)
+      }
+    });
+  };
+
+  const handleDispatchUpdateQty = () => {
+    dispatch(
+      updateCart({
+        ...state.selectedItem
+      })
+    );
+
+    clearState();
+  };
+
+  const clearState = () => {
+    setState({
+      isSelected: false,
+      selectedItem: {
+        id: '',
+        productName: '',
+        maxAmount: 0,
+        taxRate: 0,
+        price: 0,
+        quantity: 0
+      }
+    });
   };
 
   return (
@@ -84,14 +120,12 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
         {cart
           ? cart.map((selectedCart: IProductItem) => {
               return (
-                <tbody
-                  key={selectedCart.id}
-                  onClick={() => handleSelected(selectedCart.id)}
-                >
+                <tbody key={selectedCart.id}>
                   <TableRow>
                     <CardDetail>{selectedCart.productName}</CardDetail>
                     <CardDetail>{selectedCart.price}</CardDetail>
-                    {state.isSelected ? (
+                    {state.isSelected &&
+                    selectedCart.id === state.selectedItem.id ? (
                       <CardDetail
                         style={{
                           display: 'flex',
@@ -109,32 +143,43 @@ export const CartDetails = ({ product }: CardDetailsProp) => {
                           InputProps={{
                             inputProps: {
                               min: 0,
-                              max: selectedCart.quantity
+                              max: selectedCart.maxAmount
                                 ? selectedCart.maxAmount
                                 : 1
                             }
                           }}
                           value={
-                            selectedCart.quantity ? selectedCart.quantity : 0
+                            state.selectedItem.quantity
+                              ? state.selectedItem.quantity
+                              : 0
                           }
-                          // onChange={handleSelected}
-                          onMouseUp={() => {
-                            // dispatch(
-                            // setSelectedProduct({ ...selectedProduct, ...state })
-                            // );
-                          }}
+                          onChange={handleUpdateQty}
                         />
                         <Button
-                          onClick={handleUpdateQty}
+                          onClick={handleDispatchUpdateQty}
                           sx={{ textAlign: 'center' }}
                           color='secondary'
                         >
                           <CheckCircleIcon />
-                          {handleIntl('Update', locale)}
+                          {handleIntl('update', locale)}
                         </Button>
                       </CardDetail>
                     ) : (
-                      <CardDetail>{selectedCart.quantity}</CardDetail>
+                      <CardDetail
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          width: '100%',
+                          minHeight: '49px',
+                          alignItems: 'center'
+                        }}
+                        onClick={() => handleSelected(selectedCart)}
+                      >
+                        <span style={{ marginRight: '8px' }}>
+                          {selectedCart.quantity}
+                        </span>
+                        <EditIcon color='primary' />
+                      </CardDetail>
                     )}
                     <CardDetail>{`${(
                       selectedCart.quantity * selectedCart.price
