@@ -7,7 +7,9 @@
   - TypeScript
   - Redux
 
-# Bootstrapped application with Docker. Please install Docker to run application. Alternatively, simply run yarn to install dependencies then yarn start.
+# Bootstrapped application with Docker.
+
+_Desc:_ Please install Docker to run locally. Alternatively, simply run yarn to install dependencies then yarn start.
 
 ### `git clone`
 
