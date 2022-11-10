@@ -1,6 +1,31 @@
-View Finished Challenge live site: [https://taupe-quokka-464ad0.netlify.app/]
+# Frontend Tech challenge - Shopping Cart
 
-# Greetings and welcome to the Bike24 Frontend challenge
+- _View Finished Challenge live site:_ [https://taupe-quokka-464ad0.netlify.app/]
+- _Description:_ This tech challenge requires building a shopping cart application Read below for app specification.
+- _Technologies Used:_
+  - React Js,
+  - TypeScript
+  - Redux
+
+# Bootstrapped application with Docker. Please install Docker to run application. Alternatively, simply run yarn to install dependencies then yarn start.
+
+### `git clone`
+
+```sh
+git clone https://github.com/chijosh/fe-challenge.git
+```
+
+### `change directory into project directory`
+
+```sh
+cd fe-challenge
+```
+
+### `docker compose`
+
+```sh
+docker-compose up
+```
 
 ![UI example](https://github.com/Bike24/FrontendCodingChallenge/blob/main/assets/ui_example.png?raw=true)
 
