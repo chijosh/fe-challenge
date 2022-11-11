@@ -58,14 +58,14 @@ export const CostCalc = () => {
   return (
     <CostCalcContainer>
       <Slider
-        disabled={!state.quantity ? true : false}
+        disabled={!state.maxAmount ? true : false}
         onChange={handleSliderChange}
         value={state.quantity ? state.quantity : 0}
         max={state.maxAmount}
         min={0}
       />
       <TextField
-        disabled={!state.quantity ? true : false}
+        disabled={!state.maxAmount ? true : false}
         type='number'
         variant='outlined'
         label={handleIntl('quantity', locale)}
